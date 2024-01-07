@@ -56,12 +56,12 @@ export const AuthContextProvider = ({ children }: Props) => {
     const Payload = DecodeJWT<AuthTokenPayload>(JWT_TOKEN);
 
     if (!Payload) {
-      return signOut();
-    }
+      return signOut();    }
 
     setAuthToken(JWT_TOKEN);
     setAuthState(Payload);
     setIsUserAuthenticated(true);
+
   }, []);
 
   return (
