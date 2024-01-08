@@ -2,7 +2,7 @@ import { BrowserRouter, Outlet, Route, Routes, useNavigate } from "react-router-
 import { useAuthContext } from "../contexts/Auth";
 import { useEffect } from "react";
 import { CircularProgress } from "@mui/material";
-import { Login } from "@mui/icons-material";
+import Login from "./Login/Login";
 
 const PrivateRoute = () => {
   const { isUserAuthenticated } = useAuthContext();
@@ -32,7 +32,7 @@ export const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<PrivateRoute />}>
-          <Route path="/" />
+          <Route path="/" element={<></>} />
         </Route>
         <Route element={<Login />} path="/login" />
       </Routes>
