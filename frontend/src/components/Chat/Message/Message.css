@@ -1,0 +1,4 @@
+.message {
+  @apply w-full h-auto;
+  @apply flex items-start gap-4;
+}

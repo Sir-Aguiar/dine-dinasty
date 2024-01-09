@@ -1,0 +1,28 @@
+.chat-container {
+  @apply w-full md:max-w-[1120px] mx-auto h-screen;
+  @apply overflow-hidden;
+  @apply flex flex-col items-center justify-start gap-4 py-4;
+}
+
+.chat {
+  @apply w-full h-full;
+  @apply flex flex-col gap-4 p-2;
+  @apply overflow-auto;
+}
+
+.share {
+  @apply p-2 rounded-[3px];
+  @apply flex items-center gap-3;
+  @apply text-orange-400 font-semibold;
+}
+
+.input {
+  @apply w-full h-auto;
+  @apply flex items-center justify-between gap-4;
+}
+
+.input textarea {
+  @apply w-full h-auto max-h-[300px] min-h-full p-2;
+  @apply border-[1px]  border-gray-800 border-opacity-50 rounded-md resize-none outline-none;
+  @apply text-sm;
+}
