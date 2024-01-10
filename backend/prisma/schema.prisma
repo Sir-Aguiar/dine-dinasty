@@ -16,4 +16,16 @@ model User {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  Threads Threads[]
+}
+
+model Threads {
+  threadId String @id
+  userId   Int
+  User     User   @relation(fields: [userId], references: [userId])
+
+  createdAt Int
+
+  @@map("threads")
 }

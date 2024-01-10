@@ -19,7 +19,8 @@
 		"strictNullChecks": true,
 		"alwaysStrict": true,
 		"removeComments": true,
-		"noUnusedLocals": true
+		"noUnusedLocals": true,
+		"declaration": true
 	},
 	"include": [
 		"src/**/*.ts"
