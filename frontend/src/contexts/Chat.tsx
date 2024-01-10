@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useAuthContext } from "./Auth";
 
 /* 
   Cliquei pra iniciar uma nova conversa -> Cria uma nova thread -> Abre o chat da thread nova

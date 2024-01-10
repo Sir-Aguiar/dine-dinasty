@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { AuthTokenPayload } from "../@types/Auth";
 import DecodeJWT from "../utils/token-decode";
+import axios, { AxiosInstance } from "axios";
 
 type Props = {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ interface Context {
   authState: AuthTokenPayload | null;
   signIn: (token: string) => boolean;
   signOut: () => void;
+  ServerAPI: AxiosInstance;
 }
 
 const AuthContext = createContext<Context | null>(null);
@@ -22,6 +24,15 @@ export const AuthContextProvider = ({ children }: Props) => {
   const [authToken, setAuthToken] = useState<string | null>(null);
 
   const [authState, setAuthState] = useState<AuthTokenPayload | null>(null);
+
+  useEffect(() => {
+    console.log(import.meta.env.VITE_SERVER_HOST);
+  }, []);
+
+  const ServerAPI = axios.create({
+    baseURL: import.meta.env.VITE_SERVER_HOST,
+    headers: { Authorization: `Bearer ${authToken}` },
+  });
 
   const signIn = (token: string) => {
     const Payload = DecodeJWT<AuthTokenPayload>(token);
@@ -65,7 +76,7 @@ export const AuthContextProvider = ({ children }: Props) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ authToken, authState, isUserAuthenticated, signIn, signOut }}>
+    <AuthContext.Provider value={{ authToken, authState, isUserAuthenticated, ServerAPI, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
