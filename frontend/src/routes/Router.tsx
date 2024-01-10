@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 import Login from "./Login/Login";
 import Chat from "./Chat/Chat";
+import Home from "./Home/Home";
+import { ChatContextProvider } from "../contexts/Chat";
 
 const PrivateRoute = () => {
   const { isUserAuthenticated } = useAuthContext();
@@ -33,7 +35,15 @@ export const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route element={<PrivateRoute />}>
-          <Route path="/chat" element={<Chat />} />
+          <Route
+            path="/chat/:threadID"
+            element={
+              <ChatContextProvider>
+                <Chat />
+              </ChatContextProvider>
+            }
+          />
+          <Route path="/" element={<Home />} />
         </Route>
         <Route element={<Login />} path="/login" />
       </Routes>

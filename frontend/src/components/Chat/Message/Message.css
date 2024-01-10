@@ -1,4 +1,8 @@
 .message {
   @apply w-full h-auto;
-  @apply flex items-start gap-4;
+  @apply flex flex-col items-start gap-4;
+  @apply font-Montserrat;
+}
+.chat-message {
+  @apply flex flex-col gap-2;
 }

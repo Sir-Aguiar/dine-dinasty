@@ -1,0 +1,11 @@
+.home-container {
+  @apply w-full max-w-[1120px] mx-auto;
+  @apply flex flex-col gap-4 p-4;
+  @apply font-Montserrat font-semibold text-white;
+}
+
+.new-chat {
+  @apply w-48 py-2 rounded-sm;
+  @apply bg-green-500;
+  @apply hover:brightness-90;
+}
