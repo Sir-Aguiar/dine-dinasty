@@ -9,8 +9,10 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const { ServerAPI } = useAuthContext();
   const [threadLoading, setThreadLoading] = useState(false);
+
   const handleCreateThread = async () => {
     setThreadLoading(true);
+
     try {
       const threadId = await CreateThread(ServerAPI);
       navigate(`/chat/${threadId}`);

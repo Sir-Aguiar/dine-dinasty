@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { GetThreadMessages } from "../services/Message";
+import { CreateMessage, GetThreadMessages } from "../services/Message";
 import { useAuthContext } from "./Auth";
 
 type Props = {
@@ -17,12 +17,13 @@ export interface IMessage {
 interface Context {
   messages: IMessage[];
   thread: string;
+  sendMessage: (content: string) => Promise<void>;
 }
 
 const ChatContext = createContext<Context | null>(null);
 
 export const ChatContextProvider = ({ children }: Props) => {
-  const { threadID } = useParams();
+  const { threadId } = useParams();
   const navigate = useNavigate();
 
   const [thread, setThread] = useState("");
@@ -30,18 +31,29 @@ export const ChatContextProvider = ({ children }: Props) => {
 
   const { ServerAPI } = useAuthContext();
 
+  const sendMessage = async (content: string) => {
+    const message = await CreateMessage(ServerAPI, { content, threadId: threadId! });
+    setMessages((value) => [...value, message]);
+  };
+
   useEffect(() => {
-    if (!threadID) {
+    const input = document.querySelector(".chat-container .input")!.classList;
+
+    if (messages.length >= 1 && !input.contains("inactive")) input.add("inactive");
+  }, [messages]);
+
+  useEffect(() => {
+    if (!threadId) {
       navigate("/");
       return;
     }
 
-    GetThreadMessages(ServerAPI, threadID).then((response) => setMessages(response));
+    GetThreadMessages(ServerAPI, threadId).then((response) => setMessages(response));
 
-    setThread(threadID);
-  }, [threadID]);
+    setThread(threadId);
+  }, [threadId]);
 
-  return <ChatContext.Provider value={{ messages, thread }}>{children}</ChatContext.Provider>;
+  return <ChatContext.Provider value={{ messages, thread, sendMessage }}>{children}</ChatContext.Provider>;
 };
 
 export const useChatContext = () => {

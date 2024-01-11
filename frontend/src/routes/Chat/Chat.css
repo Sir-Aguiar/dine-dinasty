@@ -17,12 +17,17 @@
 }
 
 .input {
-  @apply w-full h-auto;
+  @apply w-full h-auto max-h-[168px] relative;
   @apply flex items-center justify-between gap-4;
+  @apply transition-all duration-300 overflow-hidden;
 }
 
 .input textarea {
-  @apply w-full h-auto max-h-[300px] min-h-full p-2;
+  @apply w-full h-auto max-h-full p-2;
   @apply border-[1px]  border-gray-800 border-opacity-50 rounded-md resize-none outline-none;
   @apply text-sm;
+}
+
+.input.inactive {
+  @apply max-h-0;
 }

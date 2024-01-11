@@ -36,7 +36,7 @@ export const Router = () => {
       <Routes>
         <Route element={<PrivateRoute />}>
           <Route
-            path="/chat/:threadID"
+            path="/chat/:threadId"
             element={
               <ChatContextProvider>
                 <Chat />
