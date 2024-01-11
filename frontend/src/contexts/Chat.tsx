@@ -1,16 +1,15 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { GetThreadMessages } from "../services/Message";
 import { useAuthContext } from "./Auth";
-
-/* 
-  Cliquei pra iniciar uma nova conversa -> Cria uma nova thread -> Abre o chat da thread nova
-*/
 
 type Props = {
   children: React.ReactNode;
 };
 
-interface IMessage {
+export interface IMessage {
+  messageId: string;
+  threadId: string;
   role: string;
   content: string;
 }
@@ -29,11 +28,15 @@ export const ChatContextProvider = ({ children }: Props) => {
   const [thread, setThread] = useState("");
   const [messages, setMessages] = useState<IMessage[]>([]);
 
+  const { ServerAPI } = useAuthContext();
+
   useEffect(() => {
     if (!threadID) {
       navigate("/");
       return;
     }
+
+    GetThreadMessages(ServerAPI, threadID).then((response) => setMessages(response));
 
     setThread(threadID);
   }, [threadID]);

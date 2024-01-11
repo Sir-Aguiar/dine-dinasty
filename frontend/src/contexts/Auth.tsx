@@ -25,10 +25,6 @@ export const AuthContextProvider = ({ children }: Props) => {
 
   const [authState, setAuthState] = useState<AuthTokenPayload | null>(null);
 
-  useEffect(() => {
-    console.log(import.meta.env.VITE_SERVER_HOST);
-  }, []);
-
   const ServerAPI = axios.create({
     baseURL: import.meta.env.VITE_SERVER_HOST,
     headers: { Authorization: `Bearer ${authToken}` },
