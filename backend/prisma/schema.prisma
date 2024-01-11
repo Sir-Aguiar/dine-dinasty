@@ -17,15 +17,30 @@ model User {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  Threads Threads[]
+  Thread Thread[]
 }
 
-model Threads {
+model Thread {
   threadId String @id
   userId   Int
-  User     User   @relation(fields: [userId], references: [userId])
+
+  User    User      @relation(fields: [userId], references: [userId])
+  Message Message[]
 
   createdAt Int
 
   @@map("threads")
+}
+
+model Message {
+  messageId String @id
+  threadId  String
+  role      String
+  content   String @db.Text
+
+  Thread Thread @relation(fields: [threadId], references: [threadId])
+
+  createdAt Int
+
+  @@map("messages")
 }

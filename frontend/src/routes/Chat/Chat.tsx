@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Chat.css";
 import { Share } from "@mui/icons-material";
 import Message from "../../components/Chat/Message/Message";
@@ -6,7 +6,7 @@ import { useChatContext } from "../../contexts/Chat";
 
 const Chat: React.FC = () => {
   const { messages } = useChatContext();
-
+  const [userInput, setUserInput] = useState("");
   return (
     <div className="chat-container">
       <div className="chat">
@@ -20,7 +20,11 @@ const Chat: React.FC = () => {
         </button>
       </div>
       <div className={`input ${messages.length >= 1 ? "max-h-0 overflow-hidden" : ""}`}>
-        <textarea placeholder="Insira aqui sua mensagem"></textarea>
+        <textarea
+          placeholder="Insira aqui sua mensagem"
+          value={userInput}
+          onChange={(e) => setUserInput(e.target.value)}
+        ></textarea>
         <button className="w-10 h-10 rounded-full bg-orange-400"></button>
       </div>
     </div>

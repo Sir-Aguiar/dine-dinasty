@@ -11,7 +11,7 @@ export interface IThreadCreationRepository {
 export class ThreadCreationRepository implements IThreadCreationRepository {
   async execute({ userId, threadId, createdAt }: CreateThreadInput): Promise<IThread> {
     try {
-      return await prisma.threads.create({ data: { createdAt, threadId, userId } });
+      return await prisma.thread.create({ data: { createdAt, threadId, userId } });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === "P2003") {
