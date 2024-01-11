@@ -6,17 +6,24 @@ import { NewMessage } from "../../../services/OpenAI/message/NewMessage";
 import { EntityError } from "../../../entities/EntityError";
 import { ServerError } from "../../../entities/ServerError";
 import { MessageQueryRepository } from "../../../repositories/Message/MessageQueryRepository";
+import { ThreadQueryRepository } from "../../../repositories/Thread/ThreadQueryRepository";
 
 export const CreateMessageController: RequestHandler = async (req, res) => {
   const Handler = new HTTPHandler(res);
   const { content, threadId } = req.body;
+  const { userId } = req.user;
 
   const MessageQuery = new MessageQueryRepository();
+  const ThreadQuery = new ThreadQueryRepository();
 
   const MessageRepository = new MessageCreationRepository();
   const CreateMessageUseCase = new CreateMessage(MessageRepository);
 
   try {
+    const thread = await ThreadQuery.findById(threadId as string);
+
+    if (userId !== thread.userId) return Handler.unauthorized("Você não tem acesso à esta conversa");
+
     if ((await MessageQuery.findByThread(threadId)).length >= 1) {
       return Handler.forbidden("Esta conversa já foi encerrada");
     }
