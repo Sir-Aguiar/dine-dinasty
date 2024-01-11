@@ -1,29 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Chat.css";
 import { SendRounded, Share } from "@mui/icons-material";
 import Message from "../../components/Chat/Message/Message";
 import { useChatContext } from "../../contexts/Chat";
 import { CircularProgress } from "@mui/material";
+import { CreateMessage } from "../../services/Message";
+import { useAuthContext } from "../../contexts/Auth";
+import { RunThread } from "../../services/Thread";
+import { GetRunStatus } from "../../services/Run";
 
 const Chat: React.FC = () => {
-  const { messages, sendMessage } = useChatContext();
+  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
+
+  const { messages, thread, setMessages, setRunStatus, runStatus, updateMessages } = useChatContext();
+  const { ServerAPI } = useAuthContext();
 
   const [userInput, setUserInput] = useState("");
-
-  const [isSubmitLoading, setIsSubmitLoading] = useState(false);
 
   const handleMessageSubmit = async () => {
     setIsSubmitLoading(true);
 
     try {
-      await sendMessage(userInput);
+      const message = await CreateMessage(ServerAPI, { content: userInput, threadId: thread });
+
       document.querySelector(".chat-container .input")?.classList.add("inactive");
+
+      setMessages((value) => [...value, message]);
+
+      await handleThreadRun();
     } catch (error) {
       console.log(error);
     } finally {
       setIsSubmitLoading(false);
     }
   };
+
+  const handleThreadRun = async () => {
+    try {
+      const { runId } = await RunThread(ServerAPI, thread);
+
+      const interval = setInterval(() => {
+        GetRunStatus(ServerAPI, thread, runId).then((status) => {
+          setRunStatus(status);
+          if (status === "completed") clearInterval(interval);
+        });
+      }, 3500);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (runStatus === "completed") updateMessages();
+  }, [runStatus]);
 
   return (
     <div className="chat-container">

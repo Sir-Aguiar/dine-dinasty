@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { CreateMessage, GetThreadMessages } from "../services/Message";
 import { useAuthContext } from "./Auth";
+import { RunThread } from "../services/Thread";
+import { GetRunStatus, TRunStatus } from "../services/Run";
 
 type Props = {
   children: React.ReactNode;
@@ -17,7 +19,10 @@ export interface IMessage {
 interface Context {
   messages: IMessage[];
   thread: string;
-  sendMessage: (content: string) => Promise<void>;
+  setMessages: React.Dispatch<React.SetStateAction<IMessage[]>>;
+  setRunStatus: React.Dispatch<React.SetStateAction<TRunStatus | null>>;
+  updateMessages: () => Promise<void>;
+  runStatus: TRunStatus | null;
 }
 
 const ChatContext = createContext<Context | null>(null);
@@ -27,13 +32,14 @@ export const ChatContextProvider = ({ children }: Props) => {
   const navigate = useNavigate();
 
   const [thread, setThread] = useState("");
+  const [runStatus, setRunStatus] = useState<null | TRunStatus>(null);
   const [messages, setMessages] = useState<IMessage[]>([]);
 
   const { ServerAPI } = useAuthContext();
 
-  const sendMessage = async (content: string) => {
-    const message = await CreateMessage(ServerAPI, { content, threadId: threadId! });
-    setMessages((value) => [...value, message]);
+  const updateMessages = async () => {
+    const messages = await GetThreadMessages(ServerAPI, threadId!);
+    setMessages(messages);
   };
 
   useEffect(() => {
@@ -53,7 +59,11 @@ export const ChatContextProvider = ({ children }: Props) => {
     setThread(threadId);
   }, [threadId]);
 
-  return <ChatContext.Provider value={{ messages, thread, sendMessage }}>{children}</ChatContext.Provider>;
+  return (
+    <ChatContext.Provider value={{ messages, thread, setMessages, runStatus, setRunStatus, updateMessages }}>
+      {children}
+    </ChatContext.Provider>
+  );
 };
 
 export const useChatContext = () => {
