@@ -3,6 +3,21 @@
   @apply flex flex-col items-start gap-4;
   @apply font-Montserrat;
 }
-.chat-message {
-  @apply flex flex-col gap-2;
+
+.header {
+  @apply w-full;
+  @apply flex items-center gap-4;
+  @apply font-semibold;
+}
+
+.index {
+  @apply w-5 h-5 rounded-full;
+}
+
+.user-index {
+  @apply bg-green-400;
+}
+
+.assistant-index {
+  @apply bg-orange-400;
 }

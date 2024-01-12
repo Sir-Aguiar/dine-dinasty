@@ -1,0 +1,4 @@
+.assistant-message {
+  @apply w-full h-auto;
+  @apply bg-red-300;
+}
