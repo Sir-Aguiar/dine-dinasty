@@ -18,6 +18,8 @@ model User {
   deletedAt DateTime?
 
   Thread Thread[]
+
+  @@map("users")
 }
 
 model Thread {
