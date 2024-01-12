@@ -18,11 +18,10 @@ export const SaveAnswers = async (threadId: string) => {
     for (let index = 0; index < messages.length; index++) {
       const { thread_id: threadId, id: messageId, created_at: createdAt, role, content } = messages[index];
 
-      const messageJSON = (content[0] as MessageContentText).text.value.replaceAll("<JSON>", "");
+      const messageJSON = (content[0] as MessageContentText).text.value.replaceAll("<JSON>", "").replaceAll("</JSON>","");
       if (await MessageQuery.findById(messageId)) return;
 
       const messageRecipe = JSON.parse(messageJSON);
-
       await CreateMessageUseCase.execute({
         createdAt,
         messageId,

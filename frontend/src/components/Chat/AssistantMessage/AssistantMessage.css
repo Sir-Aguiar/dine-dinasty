@@ -1,4 +1,25 @@
 .assistant-message {
+  @apply w-full h-auto flex flex-col gap-2;
+  @apply font-Montserrat;
+}
+
+.assistant-message header {
+  @apply w-full flex items-center gap-3;
+}
+
+.assistant-message main {
+  @apply flex flex-col gap-3;
   @apply w-full h-auto;
-  @apply bg-red-300;
+}
+
+.assistant-message main h1 {
+  @apply font-bold text-lg;
+}
+
+.assistant-message ul {
+  @apply text-sm flex flex-col gap-2 px-2;
+  @apply list-disc list-inside;
+}
+.assistant-message ol {
+  @apply text-sm list-decimal list-inside flex flex-col gap-2  px-2;
 }

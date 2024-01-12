@@ -9,7 +9,7 @@ const Message: React.FC<Props> = ({ content }) => {
   return (
     <div className="message">
       <div className="header">
-        <span className={`index user-index`}></span>
+        <span className={`w-5 h-5 rounded-full bg-green-400`}></span>
       </div>
       <div className="body">{content}</div>
     </div>
