@@ -1,4 +1,5 @@
 import { ApiGPT } from "../../services/OpenAI/API";
+import { SaveAnswers } from "../../services/OpenAI/message/SaveAnswers";
 
 export default function (socket: WebSocket) {
   socket.onmessage = async (event) => {
@@ -12,6 +13,7 @@ export default function (socket: WebSocket) {
           socket.send(JSON.stringify({ status }));
 
           if (status === "completed") {
+            SaveAnswers(threadId);
             clearInterval(interval);
           }
         });
