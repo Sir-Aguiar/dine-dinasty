@@ -50,11 +50,14 @@ export const ChatContextProvider = ({ children }: Props) => {
   useEffect(() => {
     if (threadId) {
       setIsPageLoading(true);
+
       updateMessages()
         .then(() => {
           setWebSocket(connectSocket());
         })
+
         .catch((error) => console.log(error))
+
         .finally(() => setIsPageLoading(false));
     } else {
       navigate("/");
@@ -63,6 +66,20 @@ export const ChatContextProvider = ({ children }: Props) => {
 
   useEffect(() => {
     if (!WebSocket) return setIsPageLoading(true);
+
+    if (WebSocket) {
+      WebSocket!.addEventListener("message", async (event) => {
+        const { status, action } = JSON.parse(event.data);
+
+        if (action === "RUN-STATUS") {
+          setRunStatus(status);
+
+          if (status === "completed") {
+            await updateMessages();
+          }
+        }
+      });
+    }
   }, [WebSocket]);
 
   useEffect(() => {

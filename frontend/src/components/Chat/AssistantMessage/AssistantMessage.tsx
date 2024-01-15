@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./AssistantMessage.css";
 
 interface Props {
@@ -10,10 +10,6 @@ interface Props {
 }
 
 const AssistantMessage: React.FC<Props> = ({ ingredients, prepare }) => {
-  useEffect(() => {
-    console.log(ingredients, prepare);
-  }, []);
-
   return (
     <div className="assistant-message">
       <header>
@@ -24,8 +20,8 @@ const AssistantMessage: React.FC<Props> = ({ ingredients, prepare }) => {
         <div className="ingredients">
           <h1>Ingredientes</h1>
           <ul>
-            {ingredients.map(({ name, quantity }) => (
-              <li>
+            {ingredients.map(({ name, quantity }, index) => (
+              <li key={index}>
                 {name} ({quantity})
               </li>
             ))}
@@ -34,8 +30,8 @@ const AssistantMessage: React.FC<Props> = ({ ingredients, prepare }) => {
         <div className="prepare">
           <h1>Modo de preparo</h1>
           <ol>
-            {prepare.map((prepare) => (
-              <li>{prepare}</li>
+            {prepare.map((prepare, index) => (
+              <li key={index}>{prepare}</li>
             ))}
           </ol>
         </div>

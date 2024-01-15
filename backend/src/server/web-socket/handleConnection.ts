@@ -1,30 +1,40 @@
-import { ApiGPT } from "../../services/OpenAI/API";
 import { SaveAnswers } from "../../services/OpenAI/message/SaveAnswers";
+import { CheckRunStatus } from "../../services/OpenAI/run/CheckStatus";
 
 export default function (socket: WebSocket) {
   console.log("Connected");
+
   socket.onclose = (event) => {
     console.log("Socket closed");
   };
+
   socket.onmessage = async (event) => {
-    const { action } = JSON.parse(event.data);
+    const { action, authToken } = JSON.parse(event.data);
+
+    if (!authToken) return socket.close();
 
     if (action === "RUN-STATUS") {
       const { threadId, runId } = JSON.parse(event.data);
 
+      
+
+      let response: any = { action: "RUN-STATUS" };
+
       const interval = setInterval(() => {
-        ApiGPT.beta.threads.runs.retrieve(threadId, runId).then(({ status }) => {
+        CheckRunStatus({ runId, threadId }).then(({ status }) => {
           if (status === "completed") {
             SaveAnswers(threadId)
               .then(() => {
-                socket.send(JSON.stringify({ status }));
+                response.status = status;
+                socket.send(JSON.stringify(response));
                 socket.close();
               })
               .finally(() => {
                 clearInterval(interval);
               });
           } else {
-            socket.send(JSON.stringify({ status }));
+            response.status = status;
+            socket.send(JSON.stringify(response));
           }
         });
       }, 2000);

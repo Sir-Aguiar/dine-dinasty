@@ -17,9 +17,10 @@
 }
 
 .assistant-message ul {
-  @apply text-sm flex flex-col gap-2 px-2;
+  @apply text-sm flex flex-col gap-2 p-2;
   @apply list-disc list-inside;
 }
+
 .assistant-message ol {
-  @apply text-sm list-decimal list-inside flex flex-col gap-2  px-2;
+  @apply text-sm list-decimal list-inside flex flex-col gap-2  p-2;
 }
