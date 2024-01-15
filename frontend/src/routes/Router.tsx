@@ -6,6 +6,7 @@ import Login from "./Login/Login";
 import Chat from "./Chat/Chat";
 import Home from "./Home/Home";
 import { ChatContextProvider } from "../contexts/Chat";
+import NavigationBar from "../components/NavigationBar/NavigationBar";
 
 const PrivateRoute = () => {
   const { isUserAuthenticated } = useAuthContext();
@@ -24,7 +25,10 @@ const PrivateRoute = () => {
   }, [isUserAuthenticated]);
 
   return isUserAuthenticated ? (
-    <Outlet />
+    <>
+      <NavigationBar />
+      <Outlet />
+    </>
   ) : (
     <CircularProgress className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" size={25} />
   );

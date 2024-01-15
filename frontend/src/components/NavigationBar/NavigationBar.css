@@ -1,0 +1,5 @@
+.nav-bar {
+  @apply sticky h-12 w-full max-w-[1120px];
+  @apply mx-auto;
+  @apply bg-blue-300;
+}
