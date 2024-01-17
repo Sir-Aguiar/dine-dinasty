@@ -3,6 +3,7 @@ export interface IPost {
   threadId: string;
   userId: number;
   title: string;
+
   ownerReview: string | null;
   upVotes: number;
   downVotes: number;
