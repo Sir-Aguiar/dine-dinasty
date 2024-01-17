@@ -56,7 +56,7 @@ model Post {
   threadId    String
   userId      Int
   ownerReview String? @db.Text
-  title       String
+  title       String  @db.VarChar(150)
   upVotes     Int     @default(0)
   downVotes   Int     @default(0)
   views       Int     @default(0)
