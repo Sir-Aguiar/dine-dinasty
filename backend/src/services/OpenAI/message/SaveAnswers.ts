@@ -12,6 +12,8 @@ const FormatBotMessage = (message: ThreadMessage) => {
   return messageJSON;
 };
 
+import { ServerError } from "../../../entities/ServerError";
+
 export const SaveAnswers = async (threadId: string) => {
   try {
     const messages = await ApiGPT.beta.threads.messages.list(threadId);
@@ -40,6 +42,6 @@ export const SaveAnswers = async (threadId: string) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    throw new ServerError(500, "Houve um erro desconhecido ao salvar as respostas da IA");
   }
 };

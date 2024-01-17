@@ -10,10 +10,10 @@ export interface IUserCreationRepository {
 }
 
 export class UserCreationRepository implements IUserCreationRepository {
-  async execute({ name, password, username }: CreateUserInput): CreateUserOutput {
+  async execute({ name, password, username, email }: CreateUserInput): CreateUserOutput {
     try {
       const hashedPassword = hashSync(password, Number(process.env.SALT));
-      return await prisma.user.create({ data: { name, password: hashedPassword, username } });
+      return await prisma.user.create({ data: { name, password: hashedPassword, username, email } });
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === "P2002") throw new ServerError(403, "Nome de usuário já está em uso");

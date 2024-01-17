@@ -16,8 +16,6 @@ export default function (socket: WebSocket) {
     if (action === "RUN-STATUS") {
       const { threadId, runId } = JSON.parse(event.data);
 
-      
-
       let response: any = { action: "RUN-STATUS" };
 
       const interval = setInterval(() => {
@@ -27,6 +25,12 @@ export default function (socket: WebSocket) {
               .then(() => {
                 response.status = status;
                 socket.send(JSON.stringify(response));
+                socket.close();
+              })
+              .catch((error) => {
+                response.error = error.message;
+                socket.send(JSON.stringify(response));
+                clearInterval(interval);
                 socket.close();
               })
               .finally(() => {

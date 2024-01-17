@@ -6,6 +6,7 @@ export interface CreateUserInput {
   name: string;
   username: string;
   password: string;
+  email: string;
 }
 
 export type CreateUserOutput = Promise<IUser>;
@@ -13,7 +14,7 @@ export type CreateUserOutput = Promise<IUser>;
 export class CreateUser {
   constructor(private repository: IUserCreationRepository) {}
 
-  async execute({ name, password, username }: CreateUserInput): CreateUserOutput {
+  async execute({ name, password, username, email }: CreateUserInput): CreateUserOutput {
     if (typeof name !== "string") throw new EntityError("Este nome é inválido");
 
     if (typeof password !== "string") throw new EntityError("Esta senha é inválido");
@@ -26,6 +27,6 @@ export class CreateUser {
 
     if (password.length < 6) throw new EntityError("A senha deve possuir mais de 6 caracteres");
 
-    return await this.repository.execute({ name, password, username });
+    return await this.repository.execute({ name, password, username, email });
   }
 }
