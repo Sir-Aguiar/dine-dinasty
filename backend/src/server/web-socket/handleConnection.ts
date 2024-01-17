@@ -1,3 +1,4 @@
+import { ThreadQueryRepository } from "../../repositories/Thread/ThreadQueryRepository";
 import { SaveAnswers } from "../../services/OpenAI/message/SaveAnswers";
 import { CheckRunStatus } from "../../services/OpenAI/run/CheckStatus";
 

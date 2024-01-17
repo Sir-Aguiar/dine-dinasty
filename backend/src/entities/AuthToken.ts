@@ -7,8 +7,9 @@ export interface IAuthToken {
   userId: number;
   username: string;
   name: string;
+  email: string;
 }
 
-export const SignAuthToken = ({ userId, username, name }: IUser): string => {
-  return sign({ userId, username, name }, process.env.SECRET!, { expiresIn: "7d" });
+export const SignAuthToken = ({ userId, email, username, name }: IUser): string => {
+  return sign({ userId, username, name, email }, process.env.SECRET!, { expiresIn: "7d" });
 };

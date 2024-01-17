@@ -13,6 +13,7 @@ export type SignInOutput = Promise<IUser>;
 
 export class SignIn {
   constructor(private queryRepository: IUserQueryRepository) {}
+
   async execute({ password, username }: SignInInput): SignInOutput {
     if (typeof password !== "string") throw new EntityError("Insira uma senha válida");
 
