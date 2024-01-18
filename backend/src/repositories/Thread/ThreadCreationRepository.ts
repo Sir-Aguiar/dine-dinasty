@@ -15,7 +15,7 @@ export class ThreadCreationRepository implements IThreadCreationRepository {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === "P2003") {
-          if (error.meta?.field_name === "userId") {
+          if (error.meta?.field_name === "threads_userId_fkey (index)") {
             throw new ServerError(403, "Nenhum usuário foi identificado");
           }
         }
