@@ -79,4 +79,5 @@ model Coment {
   User User @relation(fields: [userId], references: [userId])
 
   createdAt DateTime @default(now())
+  @@map("coments")
 }

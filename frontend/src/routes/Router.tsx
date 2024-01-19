@@ -7,6 +7,7 @@ import Chat from "./Chat/Chat";
 import Home from "./Home/Home";
 import { ChatContextProvider } from "../contexts/Chat";
 import NavigationBar from "../components/NavigationBar/NavigationBar";
+import Profile from "./Profile/Profile";
 
 const PrivateRoute = () => {
   const { isUserAuthenticated } = useAuthContext();
@@ -47,6 +48,7 @@ export const Router = () => {
               </ChatContextProvider>
             }
           />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/" element={<Home />} />
         </Route>
         <Route element={<Login />} path="/login" />

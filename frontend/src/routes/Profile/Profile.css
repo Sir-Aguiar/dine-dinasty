@@ -1,0 +1,20 @@
+.profile-container {
+  @apply h-screen w-full max-w-[1120px];
+  @apply flex items-start gap-4 py-2 mx-auto;
+}
+.sections-aside {
+  @apply w-auto h-full;
+  @apply flex flex-col  items-start py-3 gap-4;
+}
+
+.tab-section {
+  display: flex;
+  padding: 4px 0px;
+  align-items: center;
+  gap: 12px;
+  align-self: stretch;
+}
+
+.tab-content {
+  @apply w-full h-full bg-red-300;
+}
