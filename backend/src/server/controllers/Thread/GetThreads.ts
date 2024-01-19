@@ -3,7 +3,7 @@ import { HTTPHandler } from "../../../entities/HTTPHandler";
 import { ServerError } from "../../../entities/ServerError";
 import { EntityError } from "../../../entities/EntityError";
 import { ThreadQueryRepository } from "../../../repositories/Thread/ThreadQueryRepository";
-import { ApiGPT } from "../../../services/OpenAI/API";
+
 export const GetThreadsController = async (req: Request, res: Response) => {
   const Handler = new HTTPHandler(res);
   const { userId } = req.user;
