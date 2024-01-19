@@ -96,8 +96,8 @@ const Profile: React.FC = () => {
     <div className="profile-container">
       <aside className="sections-aside">
         <Tabs value={tabSection} onChange={handleTabChange} orientation="vertical">
-          {AsideTabs.map((props) => (
-            <Tab {...props} />
+          {AsideTabs.map((props, index) => (
+            <Tab {...props} key={index} />
           ))}
         </Tabs>
       </aside>

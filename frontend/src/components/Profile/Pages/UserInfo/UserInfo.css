@@ -1,0 +1,5 @@
+.basic-user-info {
+  @apply w-full h-auto;
+  @apply flex flex-col items-start gap-4 px-1 py-4;
+  @apply font-Roboto;
+}

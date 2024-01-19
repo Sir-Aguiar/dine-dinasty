@@ -1,5 +1,6 @@
 .nav-bar {
-  @apply sticky h-12 w-full max-w-[1120px];
+  @apply h-12 w-full max-w-[1120px];
+  @apply sticky left-0 top-0 z-50;
   @apply flex items-center justify-between;
   @apply py-2 px-4 gap-4 mx-auto;
   @apply bg-blue-300;
