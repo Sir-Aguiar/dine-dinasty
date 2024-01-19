@@ -14,7 +14,7 @@ export class MessageCreationRepository implements IMessageCreationRepository {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === "P2003") {
-          if (error.meta?.field_name === "threadId") {
+          if (error.meta?.field_name === "messages_threadId_fkey (index)") {
             throw new ServerError(403, "Nenhuma thread foi identificado");
           }
         }

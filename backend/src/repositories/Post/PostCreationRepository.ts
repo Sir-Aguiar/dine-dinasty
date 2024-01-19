@@ -15,8 +15,8 @@ export class PostCreationRepository implements IPostCreationRepository {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === "P2003") {
-          if (error.meta?.field_name === "userId") throw new ServerError(403, "Nenhum usuário foi identificado");
-          if (error.meta?.field_name === "threadId") throw new ServerError(403, "Nenhuma conversa foi identificada");
+          if (error.meta?.field_name === "posts_userId_fkey (index)") throw new ServerError(403, "Nenhum usuário foi identificado");
+          if (error.meta?.field_name === "posts_threadId_fkey (index)") throw new ServerError(403, "Nenhuma conversa foi identificada");
         }
       }
       throw error;
