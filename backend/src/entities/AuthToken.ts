@@ -1,5 +1,4 @@
 import "dotenv/config";
-
 import { sign } from "jsonwebtoken";
 import { IUser } from "./User";
 
