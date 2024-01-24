@@ -16,8 +16,13 @@ export const PrivateRouteMiddleware: RequestHandler = (req, res, next) => {
     next();
   } catch (error) {
     if (error instanceof JsonWebTokenError) {
+      if (error.cause === "TokenExpiredError") {
+        return Handler.unauthorized("Sua seção se encerrou, por favor autentique-se novamente");
+      }
+
       return Handler.unauthorized("É necessário estar autenticado para fazer isto");
     }
+
     return Handler.unexpected(error);
   }
 };
