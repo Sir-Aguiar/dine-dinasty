@@ -14,6 +14,7 @@ import UserInfo from "../../components/Profile/Pages/UserInfo/UserInfo";
 import Posts from "../../components/Profile/Pages/Posts/Posts";
 import History from "../../components/Profile/Pages/History/History";
 import UseSettings from "../../components/Profile/Pages/UseSettings/UseSettings";
+import { useAuthContext } from "../../contexts/Auth";
 
 const commonTabStyle = {
   alignItems: "center",
@@ -78,16 +79,12 @@ const AsideTabs: AsideTabsProps[] = [
     iconPosition: "start",
     sx: { ...commonTabStyle },
   },
-  {
-    label: "Desconectar",
-    icon: <LogoutIcon />,
-    iconPosition: "end",
-    sx: { ...commonTabStyle, color: "#FF974D", alignItems: "center", justifyContent: "space-between" },
-  },
 ];
 
 const Profile: React.FC = () => {
+  const { signOut } = useAuthContext();
   const [tabSection, setTabSection] = useState(0);
+
   const handleTabChange = (e: React.SyntheticEvent<Element, Event>, newValue: number) => {
     setTabSection(newValue);
   };
@@ -99,6 +96,15 @@ const Profile: React.FC = () => {
           {AsideTabs.map((props, index) => (
             <Tab {...props} key={index} />
           ))}
+          {
+            <Tab
+              label="Desconectar"
+              icon={<LogoutIcon />}
+              iconPosition="end"
+              sx={{ ...commonTabStyle, color: "#FF974D", alignItems: "center", justifyContent: "space-between" }}
+              onClick={signOut}
+            />
+          }
         </Tabs>
       </aside>
       {tabSection === 0 && <UserInfo />}
