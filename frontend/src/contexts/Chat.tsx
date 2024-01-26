@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { GetThreadMessages } from "../services/Message";
 import { useAuthContext } from "./Auth";
@@ -24,6 +24,11 @@ interface Context {
   isPageLoading: boolean;
   setRunStatus: React.Dispatch<React.SetStateAction<TRunStatus | undefined>>;
   runStatus: TRunStatus | undefined;
+  CreatePostModal: {
+    open(): void;
+    close(): void;
+    isOpen: boolean;
+  };
 }
 
 const ChatContext = createContext<Context | null>(null);
@@ -38,6 +43,16 @@ export const ChatContextProvider = ({ children }: Props) => {
 
   const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
   const [runStatus, setRunStatus] = useState<TRunStatus>();
+
+  const [isCreatePostOpen, setCreatePostOpen] = useState(false);
+
+  const CreatePostModal = useMemo(() => {
+    return {
+      open: () => setCreatePostOpen(true),
+      close: () => setCreatePostOpen(false),
+      isOpen: isCreatePostOpen,
+    };
+  }, [isCreatePostOpen]);
 
   const [isPageLoading, setIsPageLoading] = useState(true);
 
@@ -90,7 +105,16 @@ export const ChatContextProvider = ({ children }: Props) => {
 
   return (
     <ChatContext.Provider
-      value={{ chatMessages, updateMessages, threadId: threadId!, WebSocket, isPageLoading, runStatus, setRunStatus }}
+      value={{
+        chatMessages,
+        updateMessages,
+        threadId: threadId!,
+        WebSocket,
+        isPageLoading,
+        runStatus,
+        setRunStatus,
+        CreatePostModal,
+      }}
     >
       {children}
     </ChatContext.Provider>

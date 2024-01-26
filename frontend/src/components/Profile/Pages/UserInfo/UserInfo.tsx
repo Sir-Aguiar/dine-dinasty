@@ -21,7 +21,7 @@ const UserUpdateForm: React.FC = () => {
         name: name.value.length >= 1 ? name.value : undefined,
         username: username.value.length >= 1 ? username.value : undefined,
       });
-      
+
       signIn(token);
     } catch (error) {
       console.log(error);

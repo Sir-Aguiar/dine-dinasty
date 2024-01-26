@@ -20,6 +20,7 @@ export const GetMessagesController: RequestHandler = async (req, res) => {
 
     return Handler.ok({ messages });
   } catch (error) {
+    console.log(error)
     return Handler.unexpected(error);
   }
 };

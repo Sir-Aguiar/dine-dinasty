@@ -1,0 +1,5 @@
+.create-post {
+  @apply bg-white;
+  @apply flex flex-col gap-4 p-4 rounded-md;
+  @apply w-1/2 h-auto min-w-[328px];
+}
