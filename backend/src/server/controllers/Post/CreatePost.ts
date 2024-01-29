@@ -26,9 +26,10 @@ export const CreatePostController = async (req: Request, res: Response) => {
 
     return Handler.created({});
   } catch (error) {
+    console.log(error)
     if (error instanceof EntityError) return Handler.clientError(error.message);
     if (error instanceof ServerError) return Handler.expected(error);
-    
+
     return Handler.unexpected(error);
   }
 };
