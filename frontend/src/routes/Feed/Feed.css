@@ -1,0 +1,9 @@
+.feed {
+  @apply h-screen w-full max-w-[1120px];
+  @apply flex gap-4 py-2 mx-auto;
+}
+
+.feed-posts {
+  @apply w-full h-full;
+  @apply flex flex-col items-start;
+}

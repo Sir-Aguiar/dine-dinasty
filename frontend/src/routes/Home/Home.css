@@ -5,7 +5,13 @@
 }
 
 .new-chat {
-  @apply w-48 py-2 rounded-sm;
-  @apply bg-green-500;
-  @apply hover:brightness-90;
+  @apply w-[204px] py-2 rounded-sm;
+  @apply bg-accent-orange text-sm;
+  @apply hover:brightness-90 text-white;
+}
+
+.home-container header {
+  @apply w-full h-auto;
+  @apply flex items-center gap-6 rounded-sm;
+  @apply text-black-smooth;
 }

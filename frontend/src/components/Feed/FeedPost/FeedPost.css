@@ -1,0 +1,16 @@
+.feed-post {
+  @apply flex flex-col gap-2;
+  @apply font-Poppins text-sm;
+}
+
+.feed-post header {
+  @apply flex items-center gap-2 px-1;
+}
+
+.feed-post main {
+  @apply flex gap-4;
+}
+
+.feed-post svg {
+  @apply w-4 h-4;
+}
